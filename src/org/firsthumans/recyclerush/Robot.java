@@ -1,6 +1,10 @@
 
 package org.firsthumans.recyclerush;
 
+import org.firsthumans.recyclerush.commands.DriveArcade;
+import org.firsthumans.recyclerush.commands.DriveIdle;
+import org.firsthumans.recyclerush.subsystems.DriveTrain;
+
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -16,7 +20,14 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 public class Robot extends IterativeRobot {
 
 	public static OI oi;
-
+	
+	public static final DriveTrain driveTrain =
+		new DriveTrain(RobotMap.DRIVE_FRONTLEFTMOTOR,
+			RobotMap.DRIVE_REARLEFTMOTOR,
+			RobotMap.DRIVE_FRONTRIGHTMOTOR,
+			RobotMap.DRIVE_REARRIGHTMOTOR,
+			RobotMap.DRIVE_STRAFEMOTOR);
+	
     Command autonomousCommand;
 
     /**
@@ -49,6 +60,7 @@ public class Robot extends IterativeRobot {
         // continue until interrupted by another command, remove
         // this line or comment it out.
         if (autonomousCommand != null) autonomousCommand.cancel();
+        Scheduler.getInstance().add(new DriveArcade());
     }
 
     /**
@@ -56,7 +68,7 @@ public class Robot extends IterativeRobot {
      * You can use it to reset subsystems before shutting down.
      */
     public void disabledInit(){
-
+    	Scheduler.getInstance().add(new DriveIdle());
     }
 
     /**
