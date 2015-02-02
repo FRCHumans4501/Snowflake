@@ -11,22 +11,23 @@ public class DriveTrain extends Subsystem {
 	RobotDrive drive;
 	Talon strafeWheel;
 	Timer time;
-	
+
 	public static int X = 1;
-	
-	public DriveTrain(int frontLeftMotor, int frontRightMotor, int rearLeftMotor, int rearRightMotor, int strafeMotor) {
-		drive = new RobotDrive(frontLeftMotor, rearLeftMotor, frontRightMotor, rearRightMotor);
+
+	public DriveTrain(int frontLeftMotor, int frontRightMotor,
+			int rearLeftMotor, int rearRightMotor, int strafeMotor) {
+		drive = new RobotDrive(frontLeftMotor, rearLeftMotor, frontRightMotor,
+				rearRightMotor);
 		strafeWheel = new Talon(strafeMotor);
 	}
 
-    public void initDefaultCommand() {
-        setDefaultCommand(new DriveIdle());
-    }
-       
-    public void arcadeDrive(double forward, double strafe, double rotate) {
-    	// NOTE(jerish): Implement gyro / encoder drive correction
-    	drive.arcadeDrive(forward, rotate);
-    	strafeWheel.set(strafe);
-    }
-}
+	public void initDefaultCommand() {
+		setDefaultCommand(new DriveIdle());
+	}
 
+	public void arcadeDrive(double forward, double strafe, double rotate) {
+		// NOTE(jerish): Implement gyro / encoder drive correction
+		drive.arcadeDrive(forward, rotate);
+		strafeWheel.set(strafe);
+	}
+}

@@ -1,7 +1,11 @@
 package org.firsthumans.recyclerush;
 
+import org.firsthumans.recyclerush.commands.GripperClose;
+import org.firsthumans.recyclerush.commands.GripperOpen;
+
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -9,54 +13,44 @@ import edu.wpi.first.wpilibj.buttons.Button;
  */
 public class OI {
 	public enum Trigger {
-		TRIGGER_LEFT, TRIGGER_RIGHT
+		LEFT, RIGHT
+	}
+
+	Joystick controller = new Joystick(0);
+	Button closeGripperButton = new JoystickButton(controller, RobotMap.CONTROLLER_LTRIGGER);
+	Button openGripperButton = new JoystickButton(controller, RobotMap.CONTROLLER_RTRIGGER);
+
+	public OI() {
+		closeGripperButton.whenPressed(new GripperClose());
+		openGripperButton.whenPressed(new GripperOpen());
 	}
 	
-    //// CREATING BUTTONS
-    // One type of button is a joystick button which is any button on a joystick.
-    // You create one by telling it which joystick it's on and which button
-    // number it is.
-    Joystick controller = new Joystick(0);
-    // Button button = new JoystickButton(stick, buttonNumber);
-    
-    // There are a few additional built in buttons you can use. Additionally,
-    // by subclassing Button you can create custom triggers and bind those to
-    // commands the same as any other Button.
-    
-    //// TRIGGERING COMMANDS WITH BUTTONS
-    // Once you have a button, it's trivial to bind it to a button in one of
-    // three ways:
-    
-    // Start the command when the button is pressed and let it run the command
-    // until it is finished as determined by it's isFinished method.
-    // button.whenPressed(new ExampleCommand());
-    
-    // Run the command while the button is being held down and interrupt it once
-    // the button is released.
-    // button.whileHeld(new ExampleCommand());
-    
-    // Start the command when the button is released  and let it run the command
-    // until it is finished as determined by it's isFinished method.
-    // button.whenReleased(new ExampleCommand());
-    
-    public double getX() {
-    	return controller.getRawAxis(RobotMap.CONTROLLER_LX);
-    }
-    
-    public double getY() {
-    	return controller.getRawAxis(RobotMap.CONTROLLER_LY);
-    }
+	public double getX() {
+		return controller.getRawAxis(RobotMap.CONTROLLER_LX);
+	}
+	
+	public double getRightX() {
+		return controller.getRawAxis(RobotMap.CONTROLLER_RX);
+	}
+
+	public double getY() {
+		return controller.getRawAxis(RobotMap.CONTROLLER_LY);
+	}
+
+	public double getRightY() {
+		return controller.getRawAxis(RobotMap.CONTROLLER_RY);
+	}
 
 	public double getTriggers() {
-		return controller.getRawAxis(RobotMap.CONTROLLER_RTRIGGER) - controller.getRawAxis(RobotMap.CONTROLLER_LTRIGGER);
+		return controller.getRawAxis(RobotMap.CONTROLLER_RTRIGGER)
+				- controller.getRawAxis(RobotMap.CONTROLLER_LTRIGGER);
 	}
-	
+
 	public double getRawTrigger(Trigger trigger) {
-		if (trigger == Trigger.TRIGGER_LEFT) {
+		if (trigger == Trigger.LEFT) {
 			return controller.getRawAxis(RobotMap.CONTROLLER_LTRIGGER);
 		} else {
 			return controller.getRawAxis(RobotMap.CONTROLLER_RTRIGGER);
 		}
 	}
 }
-
