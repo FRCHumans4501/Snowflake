@@ -4,15 +4,11 @@ import org.firsthumans.recyclerush.commands.DriveIdle;
 
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.Talon;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class DriveTrain extends Subsystem {
 	RobotDrive drive;
 	Talon strafeWheel;
-	Timer time;
-
-	public static int X = 1;
 
 	public DriveTrain(int frontLeftMotor, int frontRightMotor,
 			int rearLeftMotor, int rearRightMotor, int strafeMotor) {

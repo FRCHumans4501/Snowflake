@@ -30,9 +30,11 @@ public class DriveArcade extends Command {
 		double strafe = oi.getX();
 		double forward = oi.getY();
 		double rotate = oi.getTriggers();
-		driveTrain.arcadeDrive(strafe, forward, rotate);
+		driveTrain.arcadeDrive(forward, strafe, rotate);
 	}
-
+	
+	
+	
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
 		return false;
