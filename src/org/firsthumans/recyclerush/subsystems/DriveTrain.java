@@ -24,7 +24,7 @@ public class DriveTrain extends Subsystem {
 	public void arcadeDrive(double forward, double strafe, double rotate) {
 		// TODO(jerish): Implement gyro / encoder drive correction
 		drive.arcadeDrive(forward, rotate);
-		
+
 		// NOTE(jerish): Strafe motor Inverted
 		strafeWheel.set(-strafe);
 	}

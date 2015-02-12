@@ -1,5 +1,6 @@
 package org.firsthumans.recyclerush;
 
+import org.firsthumans.recyclerush.commands.AutonomousGroup;
 import org.firsthumans.recyclerush.commands.DriveArcade;
 import org.firsthumans.recyclerush.commands.DriveIdle;
 import org.firsthumans.recyclerush.commands.ElevatorHumanControl;
@@ -7,7 +8,6 @@ import org.firsthumans.recyclerush.commands.ElevatorIdle;
 import org.firsthumans.recyclerush.subsystems.DriveTrain;
 import org.firsthumans.recyclerush.subsystems.Elevator;
 import org.firsthumans.recyclerush.subsystems.Gripper;
-import org.firsthumans.recyclerush.subsystems.Gripper.GripperState;
 
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Gyro;
@@ -36,9 +36,9 @@ public class Robot extends IterativeRobot {
 			RobotMap.SOLENOID_GRIPPERFORWARD, RobotMap.SOLENOID_GRIPPERBACKWARD);
 	public static final Elevator elevator = new Elevator(
 			RobotMap.ANALOG_WINCHMOTOR);
-	
+
+	public static Gyro gyro;
 	Encoder encoder;
-	Gyro gyro;
 
 	Command autonomousCommand;
 
@@ -50,6 +50,8 @@ public class Robot extends IterativeRobot {
 		oi = new OI();
 		encoder = new Encoder(1, 2);
 		gyro = new Gyro(0);
+
+		autonomousCommand = new AutonomousGroup();
 	}
 
 	public void disabledPeriodic() {
@@ -76,7 +78,7 @@ public class Robot extends IterativeRobot {
 		// this line or comment it out.
 		if (autonomousCommand != null)
 			autonomousCommand.cancel();
-		
+
 		Scheduler.getInstance().add(new DriveArcade());
 		Scheduler.getInstance().add(new ElevatorHumanControl());
 		gyro.reset();
@@ -100,7 +102,7 @@ public class Robot extends IterativeRobot {
 		SmartDashboard.putNumber("Encoder Distance", encoder.getDistance());
 		SmartDashboard.putNumber("Gyro Angle", gyro.getAngle());
 		SmartDashboard.putNumber("Gyro Rate", gyro.getRate());
-		
+
 		Scheduler.getInstance().run();
 	}
 

@@ -31,4 +31,8 @@ public class RobotMap {
 	// Solenoid Channel Maps
 	public static final int SOLENOID_GRIPPERFORWARD = 0,
 			SOLENOID_GRIPPERBACKWARD = 1;
+
+	// PID Constants for DriveTrain
+	public static final double DRIVEPID_Kp = 0.03, DRIVEPID_Ki = 0,
+			DRIVEPID_Kd = 0;
 }

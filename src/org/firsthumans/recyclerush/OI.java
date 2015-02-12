@@ -17,18 +17,20 @@ public class OI {
 	}
 
 	Joystick controller = new Joystick(0);
-	Button closeGripperButton = new JoystickButton(controller, RobotMap.CONTROLLER_LTRIGGER);
-	Button openGripperButton = new JoystickButton(controller, RobotMap.CONTROLLER_RTRIGGER);
+	Button closeGripperButton = new JoystickButton(controller,
+			RobotMap.CONTROLLER_LTRIGGER);
+	Button openGripperButton = new JoystickButton(controller,
+			RobotMap.CONTROLLER_RTRIGGER);
 
 	public OI() {
 		closeGripperButton.whenPressed(new GripperClose());
 		openGripperButton.whenPressed(new GripperOpen());
 	}
-	
+
 	public double getX() {
 		return controller.getRawAxis(RobotMap.CONTROLLER_LX);
 	}
-	
+
 	public double getRightX() {
 		return controller.getRawAxis(RobotMap.CONTROLLER_RX);
 	}
