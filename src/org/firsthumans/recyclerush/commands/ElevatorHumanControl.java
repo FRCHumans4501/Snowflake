@@ -2,7 +2,9 @@ package org.firsthumans.recyclerush.commands;
 
 import org.firsthumans.recyclerush.OI;
 import org.firsthumans.recyclerush.Robot;
+import org.firsthumans.recyclerush.RobotMap;
 
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
@@ -11,9 +13,14 @@ import edu.wpi.first.wpilibj.command.Command;
 public class ElevatorHumanControl extends Command {
 
 	OI oi = Robot.oi;
+	DigitalInput bottomSwitch;
+	DigitalInput topSwitch;
 
 	public ElevatorHumanControl() {
 		requires(Robot.elevator);
+
+		bottomSwitch = new DigitalInput(RobotMap.LIMIT_DOWN);
+		topSwitch = new DigitalInput(RobotMap.LIMIT_UP);
 	}
 
 	// Called just before this Command runs the first time
@@ -22,15 +29,27 @@ public class ElevatorHumanControl extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		double speed = oi.getRightY();
+		float speed = (float)Math.pow(oi.getRightY(), 2.0) * 0.5f;
 		if (speed > 0) {
-			speed = Math.pow(speed, 2.0);
+			if (topSwitch.get()) {
+				Robot.logNumber("Elevator Speed", 0);
+				Robot.elevator.move(0);
+			} else {
+				Robot.logNumber("Elevator Speed", speed);
+				Robot.elevator.move(speed);
+			}
 		} else if (speed < 0) {
-			speed = -Math.pow(speed, 2.0);
+			if (bottomSwitch.get()) {
+				Robot.logNumber("Elevator Speed", 0);
+				Robot.elevator.move(0);
+			} else {
+				Robot.logNumber("Elevator Speed", -speed);
+				Robot.elevator.move(-speed);
+			}
 		} else {
-			speed = 0;
+			Robot.logNumber("Elevator Speed", 0);
+			Robot.elevator.move(0);
 		}
-		Robot.elevator.set(speed);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

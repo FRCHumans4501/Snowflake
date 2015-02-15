@@ -28,7 +28,7 @@ public class Elevator extends Subsystem {
 		winchMotor.set(-Math.abs(speed));
 	}
 	
-	public void set(double speed) {
+	public void move(double speed) {
 		winchMotor.set(speed);
 	}
 }

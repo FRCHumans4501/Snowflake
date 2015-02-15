@@ -18,6 +18,9 @@ public class RobotMap {
 	// Sensor Digital Channels
 	public static final int DIGITAL_GYRO = 0;
 
+	// Limit Switches
+	public static final int LIMIT_DOWN = 0, LIMIT_UP = 1;
+
 	// Controller Trigger Maps
 	public static final int CONTROLLER_LX = 0, CONTROLLER_LY = 1,
 			CONTROLLER_LTRIGGER = 2, CONTROLLER_RTRIGGER = 3,

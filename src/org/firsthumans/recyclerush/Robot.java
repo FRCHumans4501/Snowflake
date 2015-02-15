@@ -48,7 +48,7 @@ public class Robot extends IterativeRobot {
 	 */
 	public void robotInit() {
 		oi = new OI();
-		encoder = new Encoder(1, 2);
+		encoder = new Encoder(8, 9);
 		gyro = new Gyro(0);
 
 		autonomousCommand = new AutonomousGroup();
@@ -60,6 +60,7 @@ public class Robot extends IterativeRobot {
 
 	public void autonomousInit() {
 		// schedule the autonomous command (example)
+		gyro.reset();
 		if (autonomousCommand != null)
 			autonomousCommand.start();
 	}
@@ -98,10 +99,10 @@ public class Robot extends IterativeRobot {
 	 * This function is called periodically during operator control
 	 */
 	public void teleopPeriodic() {
-		SmartDashboard.putNumber("Encoder Rate", encoder.getRate());
-		SmartDashboard.putNumber("Encoder Distance", encoder.getDistance());
-		SmartDashboard.putNumber("Gyro Angle", gyro.getAngle());
-		SmartDashboard.putNumber("Gyro Rate", gyro.getRate());
+		Robot.logNumber("Encoder Rate", encoder.getRate());
+		Robot.logNumber("Encoder Distance", encoder.getDistance());
+		Robot.logNumber("Gyro Angle", gyro.getAngle());
+		Robot.logNumber("Gyro Rate", gyro.getRate());
 
 		Scheduler.getInstance().run();
 	}
@@ -111,5 +112,12 @@ public class Robot extends IterativeRobot {
 	 */
 	public void testPeriodic() {
 		LiveWindow.run();
+	}
+	
+	/**
+	 * Logging Functions
+	 */
+	public static void logNumber(String name, double number) {
+		SmartDashboard.putNumber(name, number);
 	}
 }

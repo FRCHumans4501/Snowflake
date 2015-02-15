@@ -15,7 +15,7 @@ public class DriveStraightForTime extends Command {
 	Timer timer;
 	Gyro gyro;
 
-	double time;
+	double runTime;
 	double speed;
 	boolean finished = false;
 
@@ -23,7 +23,7 @@ public class DriveStraightForTime extends Command {
 		timer = new Timer();
 		gyro = Robot.gyro;
 
-		this.time = time;
+		this.runTime = time;
 		this.speed = speed;
 
 		requires(Robot.driveTrain);
@@ -38,15 +38,14 @@ public class DriveStraightForTime extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		float angle = (float) gyro.getAngle();
-		Robot.driveTrain.arcadeDrive(speed, 0, -angle * RobotMap.DRIVEPID_Kp);
+		Robot.driveTrain.arcadeDriveStraight(speed, 0, 0);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
 		double currentTime = timer.get();
 
-		if (time > currentTime) {
+		if (runTime > currentTime) {
 			return false;
 		} else {
 			return true;

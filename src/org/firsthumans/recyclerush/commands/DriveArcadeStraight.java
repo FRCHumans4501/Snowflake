@@ -16,9 +16,7 @@ public class DriveArcadeStraight extends Command {
 	DriveTrain driveTrain;
 	Gyro gyro;
 	OI oi;
-
-	float heading;
-
+	
 	public DriveArcadeStraight() {
 		requires(Robot.driveTrain);
 
@@ -33,20 +31,11 @@ public class DriveArcadeStraight extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		double strafe = oi.getRightX();
+		double strafe = oi.getX();
 		double forward = oi.getY();
 		double rotate = oi.getTriggers();
-
-		if (rotate > 0.01 || rotate < -0.01) {
-			float angle = (float) gyro.getAngle();
-
-			Robot.driveTrain.arcadeDrive(forward, strafe, -angle
-					* RobotMap.DRIVEPID_Kp);
-		} else {
-			heading = (float) gyro.getAngle();
-
-			driveTrain.arcadeDrive(forward, strafe, rotate);
-		}
+		
+		Robot.driveTrain.arcadeDriveStraight(forward, strafe, rotate);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

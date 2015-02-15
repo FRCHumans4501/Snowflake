@@ -1,5 +1,9 @@
 package org.firsthumans.recyclerush;
 
+import org.firsthumans.recyclerush.commands.AutonomousGroup;
+import org.firsthumans.recyclerush.commands.DriveArcade;
+import org.firsthumans.recyclerush.commands.DriveArcadeStraight;
+import org.firsthumans.recyclerush.commands.DriveIdle;
 import org.firsthumans.recyclerush.commands.GripperClose;
 import org.firsthumans.recyclerush.commands.GripperOpen;
 
@@ -21,10 +25,23 @@ public class OI {
 			RobotMap.CONTROLLER_LTRIGGER);
 	Button openGripperButton = new JoystickButton(controller,
 			RobotMap.CONTROLLER_RTRIGGER);
+	
+	// TODO(jerish): Test Code DO NOT SHIP
+	Button autoTestOn = new JoystickButton(controller, RobotMap.BUTTON_A);
+	Button autoTestOff = new JoystickButton(controller, RobotMap.BUTTON_B);
+	Button straightTestOn = new JoystickButton(controller, RobotMap.BUTTON_X);
+	Button straightTestOff = new JoystickButton(controller, RobotMap.BUTTON_Y);
 
 	public OI() {
 		closeGripperButton.whenPressed(new GripperClose());
 		openGripperButton.whenPressed(new GripperOpen());
+		
+		// TODO(jerish): Test Code DO NOT SHIP
+		/*autoTestOn.whenPressed(new AutonomousGroup());
+		autoTestOff.whenPressed(new DriveIdle());
+		
+		straightTestOn.whenPressed(new DriveArcadeStraight());
+		straightTestOff.whenPressed(new DriveArcade());*/
 	}
 
 	public double getX() {
