@@ -13,14 +13,9 @@ import edu.wpi.first.wpilibj.command.Command;
 public class ElevatorHumanControl extends Command {
 
 	OI oi = Robot.oi;
-	DigitalInput bottomSwitch;
-	DigitalInput topSwitch;
 
 	public ElevatorHumanControl() {
 		requires(Robot.elevator);
-
-		bottomSwitch = new DigitalInput(RobotMap.LIMIT_DOWN);
-		topSwitch = new DigitalInput(RobotMap.LIMIT_UP);
 	}
 
 	// Called just before this Command runs the first time
@@ -29,27 +24,11 @@ public class ElevatorHumanControl extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		float speed = (float)Math.pow(oi.getRightY(), 2.0) * 0.5f;
-		if (speed > 0) {
-			if (topSwitch.get()) {
-				Robot.logNumber("Elevator Speed", 0);
-				Robot.elevator.move(0);
-			} else {
-				Robot.logNumber("Elevator Speed", speed);
-				Robot.elevator.move(speed);
-			}
-		} else if (speed < 0) {
-			if (bottomSwitch.get()) {
-				Robot.logNumber("Elevator Speed", 0);
-				Robot.elevator.move(0);
-			} else {
-				Robot.logNumber("Elevator Speed", -speed);
-				Robot.elevator.move(-speed);
-			}
-		} else {
-			Robot.logNumber("Elevator Speed", 0);
-			Robot.elevator.move(0);
-		}
+		Robot.logString("Elevator Humans Control", "Engaged");
+		
+		double speed = (float)Math.pow(oi.getRightY(), 2.0);
+		if (oi.getRightY() > 0) speed = -speed;
+		Robot.elevator.move(speed);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
@@ -66,3 +45,4 @@ public class ElevatorHumanControl extends Command {
 	protected void interrupted() {
 	}
 }
+

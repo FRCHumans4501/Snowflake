@@ -4,6 +4,7 @@ import org.firsthumans.recyclerush.commands.AutonomousGroup;
 import org.firsthumans.recyclerush.commands.DriveArcade;
 import org.firsthumans.recyclerush.commands.DriveArcadeStraight;
 import org.firsthumans.recyclerush.commands.DriveIdle;
+import org.firsthumans.recyclerush.commands.DriveRotateAngle;
 import org.firsthumans.recyclerush.commands.GripperClose;
 import org.firsthumans.recyclerush.commands.GripperOpen;
 
@@ -22,9 +23,9 @@ public class OI {
 
 	Joystick controller = new Joystick(0);
 	Button closeGripperButton = new JoystickButton(controller,
-			RobotMap.CONTROLLER_LTRIGGER);
+			RobotMap.BUMPER_L);
 	Button openGripperButton = new JoystickButton(controller,
-			RobotMap.CONTROLLER_RTRIGGER);
+			RobotMap.BUMPER_R);
 	
 	// TODO(jerish): Test Code DO NOT SHIP
 	Button autoTestOn = new JoystickButton(controller, RobotMap.BUTTON_A);
@@ -35,6 +36,9 @@ public class OI {
 	public OI() {
 		closeGripperButton.whenPressed(new GripperClose());
 		openGripperButton.whenPressed(new GripperOpen());
+		
+		autoTestOn.whenPressed(new DriveRotateAngle(90));
+		autoTestOff.whenPressed(new DriveArcade());
 		
 		// TODO(jerish): Test Code DO NOT SHIP
 		/*autoTestOn.whenPressed(new AutonomousGroup());

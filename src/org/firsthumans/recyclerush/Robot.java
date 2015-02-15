@@ -9,6 +9,7 @@ import org.firsthumans.recyclerush.subsystems.DriveTrain;
 import org.firsthumans.recyclerush.subsystems.Elevator;
 import org.firsthumans.recyclerush.subsystems.Gripper;
 
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Gyro;
 import edu.wpi.first.wpilibj.IterativeRobot;
@@ -41,6 +42,8 @@ public class Robot extends IterativeRobot {
 	Encoder encoder;
 
 	Command autonomousCommand;
+	
+	CameraServer server;
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -51,7 +54,16 @@ public class Robot extends IterativeRobot {
 		encoder = new Encoder(8, 9);
 		gyro = new Gyro(0);
 
-		autonomousCommand = new AutonomousGroup();
+		/*try {
+			autonomousCommand = new AutonomousGroup();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}*/
+		
+        server = CameraServer.getInstance();
+        server.setQuality(50);
+        server.startAutomaticCapture("cam0");
 	}
 
 	public void disabledPeriodic() {
@@ -117,7 +129,11 @@ public class Robot extends IterativeRobot {
 	/**
 	 * Logging Functions
 	 */
-	public static void logNumber(String name, double number) {
-		SmartDashboard.putNumber(name, number);
+	public static void logNumber(String key, double value) {
+		SmartDashboard.putNumber(key, value);
+	}
+	
+	public static void logString(String key, String value) {
+		SmartDashboard.putString(key, value);
 	}
 }

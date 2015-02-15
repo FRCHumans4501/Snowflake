@@ -1,6 +1,6 @@
 package org.firsthumans.recyclerush.subsystems;
 
-import org.firsthumans.recyclerush.commands.GripperClose;
+import org.firsthumans.recyclerush.commands.GripperIdle;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
@@ -23,7 +23,7 @@ public class Gripper extends Subsystem {
 	}
 
 	public void initDefaultCommand() {
-		setDefaultCommand(new GripperClose());
+		//setDefaultCommand(new GripperIdle());
 	}
 
 	public void open() {
@@ -34,6 +34,18 @@ public class Gripper extends Subsystem {
 	public void close() {
 		solenoid.set(Value.kReverse);
 		state = GripperState.GP_CLOSED;
+	}
+	
+	public void set(GripperState state) {
+		switch (state) {
+		case GP_CLOSED:
+			this.close();
+			break;
+			
+		case GP_OPEN:
+			this.open();
+			break;
+		}
 	}
 	
 	public GripperState getState() {

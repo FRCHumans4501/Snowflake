@@ -53,4 +53,10 @@ public class DriveTrain extends Subsystem {
 			this.arcadeDrive(forward, strafe, rotate);
 		}
 	}
+	
+	public void rotateDegrees(double targetAngle, double currentAngle) {
+		double rotate = (targetAngle - currentAngle) * 0.01;
+		
+		this.arcadeDrive(0, 0, rotate);
+	}
 }
