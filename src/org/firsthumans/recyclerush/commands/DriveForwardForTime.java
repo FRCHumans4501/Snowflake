@@ -1,38 +1,54 @@
 package org.firsthumans.recyclerush.commands;
 
-import org.firsthumans.recyclerush.OI;
 import org.firsthumans.recyclerush.Robot;
 
+import edu.wpi.first.wpilibj.Gyro;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class ElevatorHumanControl extends Command {
+public class DriveForwardForTime extends Command {
 
-	OI oi = Robot.oi;
+	Timer timer;
+	Gyro gyro;
 
-	public ElevatorHumanControl() {
-		requires(Robot.elevator);
+	double runTime;
+	double speed;
+	boolean finished = false;
+
+	public DriveForwardForTime(double speed, double time) {
+		timer = new Timer();
+		gyro = Robot.gyro;
+
+		this.runTime = time;
+		this.speed = speed;
+
+		requires(Robot.driveTrain);
 	}
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
+		timer.stop();
+		timer.reset();
+		timer.start();
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		Robot.logString("Elevator Humans Control", "Engaged");
-		
-		double speed = (float)oi.getRightY();
-		//double speed = (float)Math.pow(oi.getRightY(), 2.0);
-		//if (oi.getRightY() > 0) speed = -speed;
-		Robot.elevator.move(speed);
+		Robot.driveTrain.arcadeDrive(speed, 0, 0);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		return false;
+		double currentTime = timer.get();
+
+		if (runTime > currentTime) {
+			return false;
+		} else {
+			return true;
+		}
 	}
 
 	// Called once after isFinished returns true
@@ -44,4 +60,3 @@ public class ElevatorHumanControl extends Command {
 	protected void interrupted() {
 	}
 }
-

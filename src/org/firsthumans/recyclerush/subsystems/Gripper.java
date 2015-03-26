@@ -1,5 +1,6 @@
 package org.firsthumans.recyclerush.subsystems;
 
+import org.firsthumans.recyclerush.RobotMap;
 import org.firsthumans.recyclerush.commands.GripperIdle;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
@@ -18,12 +19,13 @@ public class Gripper extends Subsystem {
 	DoubleSolenoid solenoid;
 	GripperState state;
 
-	public Gripper(int forwardChannel, int reverseChannel) {
-		solenoid = new DoubleSolenoid(forwardChannel, reverseChannel);
+	public Gripper() {
+		solenoid = new DoubleSolenoid(RobotMap.SOLENOID_GRIPPERFORWARD, RobotMap.SOLENOID_GRIPPERBACKWARD);
+		state = GripperState.GP_CLOSED;
 	}
 
 	public void initDefaultCommand() {
-		//setDefaultCommand(new GripperIdle());
+		setDefaultCommand(new GripperIdle());
 	}
 
 	public void open() {

@@ -23,6 +23,7 @@ public class DriveArcade extends Command {
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
+		//driveTrain.startEncoderDrive();
 	}
 
 	// Called repeatedly when this Command is scheduled to run
@@ -31,6 +32,7 @@ public class DriveArcade extends Command {
 		double forward = oi.getY();
 		double rotate = oi.getTriggers();
 		driveTrain.arcadeDrive(forward, strafe, rotate);
+		//driveTrain.encoderDrive(1, 0, 0);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

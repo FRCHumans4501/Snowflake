@@ -14,7 +14,7 @@ public class AutonomousGroup extends CommandGroup {
 		public AutonomousGroupStage1() {
 			addParallel(new GripperOpen());
 			addSequential(new ElevatorLower());
-			addSequential(new DriveStraightForTime(0.5, 1));
+			addSequential(new DriveForwardForTime(0.5, 1));
 		}
 		
 	}
@@ -32,7 +32,7 @@ public class AutonomousGroup extends CommandGroup {
 	private class AutonomousGroupStage3 extends CommandGroup {
 		
 		public AutonomousGroupStage3() {
-			addSequential(new DriveStraightForTime(1, 5));			
+			addSequential(new DriveForwardForTime(1, 5));			
 		}
 		
 	}
@@ -43,7 +43,7 @@ public class AutonomousGroup extends CommandGroup {
 			//addParallel(new DriveRotateAngle(-90));
 			addSequential(new ElevatorLower());
 			addParallel(new GripperOpen());
-			addSequential(new DriveStraightForTime(0.5, -1));
+			addSequential(new DriveForwardForTime(0.5, -1));
 		}
 		
 	}
@@ -58,14 +58,8 @@ public class AutonomousGroup extends CommandGroup {
 		 * Drop Box + Drive backwards
 		 */	
 		addSequential(new AutonomousGroupStage1());
-		
-		Thread.sleep(500);
-		
 		addSequential(new AutonomousGroupStage2());
 		addSequential(new AutonomousGroupStage3());
-		
-		Thread.sleep(500);
-		
 		addSequential(new AutonomousGroupStage4());
 	}
 	

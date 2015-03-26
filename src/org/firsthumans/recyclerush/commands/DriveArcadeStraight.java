@@ -2,7 +2,6 @@ package org.firsthumans.recyclerush.commands;
 
 import org.firsthumans.recyclerush.OI;
 import org.firsthumans.recyclerush.Robot;
-import org.firsthumans.recyclerush.RobotMap;
 import org.firsthumans.recyclerush.subsystems.DriveTrain;
 
 import edu.wpi.first.wpilibj.Gyro;
