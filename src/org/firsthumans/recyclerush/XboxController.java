@@ -81,5 +81,10 @@ public class XboxController extends Joystick {
 			return this.getRawAxis(TRIGGER_R);
 		}
 	}
+	
+	@Override
+	public void setRumble(RumbleType type, float value) {
+		super.setRumble(type, value);
+	}
 
 }

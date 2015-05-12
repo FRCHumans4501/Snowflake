@@ -54,7 +54,7 @@ public class Robot extends IterativeRobot {
 		
 		autonomousChooser = new SendableChooser();
 		autonomousChooser.addDefault("Auto Mode Off", new DriveIdle());
-		autonomousChooser.addObject("Auto On", new DriveForwardForTime(1/3, 2.0));
+		autonomousChooser.addObject("Auto On", new DriveForwardForTime(0.5, 7.0));
 		SmartDashboard.putData("Auto Chooser", autonomousChooser);
 
 		/*
@@ -78,12 +78,13 @@ public class Robot extends IterativeRobot {
 		//driveTrain.resetEncoders();
 		
 		autonomousCommand = (Command)autonomousChooser.getSelected();
-		if (autonomousCommand != null)
+		if (autonomousCommand != null) {
 			autonomousCommand.start();
+		}
 	}
 
 	/**
-	 * This function is called periodically during autonomous
+	 * This function is called periodically during autonomousc v 
 	 */
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
@@ -113,7 +114,8 @@ public class Robot extends IterativeRobot {
 		gyro.reset();
 
 		//driveTrain.resetEncoders();
-
+		oi.setRumble(0);
+		
 		Scheduler.getInstance().add(new DriveIdle());
 		Scheduler.getInstance().add(new ElevatorIdle());
 	}
@@ -124,13 +126,18 @@ public class Robot extends IterativeRobot {
 	public void teleopPeriodic() {
 		//driveTrain.logEncoderValues();
 
-		Robot.logNumber("Gyro Angle", gyro.getAngle());
-		Robot.logNumber("Gyro Rate", gyro.getRate());
-
 		double matchTime = oi.getMatchTime();
-		if (matchTime - 120 >= 0) {
-			// Increase from 0 to 1/2 over the last 15 seconds of the match
-			oi.setRumble((1 / 2) * ((matchTime - 120) / 15));
+		double timeToRumble = 25.0;
+		Robot.debugLogString("Match time: " + matchTime);
+		if (matchTime < 30 && matchTime > 29.5)
+ 			oi.setRumble(0.5);
+		else if (matchTime < 29 && matchTime > 28.5)
+			oi.setRumble(0.5);
+		else if (matchTime <= timeToRumble && matchTime > 0) {
+			double rumbleValue = 1 / matchTime;
+			oi.setRumble(rumbleValue);
+		} else {
+			oi.setRumble(0);
 		}
 
 		Scheduler.getInstance().run();
@@ -152,5 +159,9 @@ public class Robot extends IterativeRobot {
 
 	public static void logString(String key, String value) {
 		SmartDashboard.putString(key, value);
+	}
+	
+	public static void debugLogString(String value) {
+		System.out.println(value);
 	}
 }

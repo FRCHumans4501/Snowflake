@@ -41,8 +41,6 @@ public class ElevatorRaise extends Command {
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		Robot.logNumber("Raise Run time", runTime);
-		Robot.logNumber("Raise Current Time", timer.get());
 		if (runTime == 0) {
 			return Robot.elevator.topSwitch.get();
 		} else {

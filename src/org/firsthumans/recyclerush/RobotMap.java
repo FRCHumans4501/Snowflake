@@ -38,10 +38,10 @@ public class RobotMap {
 			ENCODER_RR_A = 4, ENCODER_RR_B = 5; // Rear Right
 
 	// Solenoid Channel Maps
-	public static final int SOLENOID_GRIPPERFORWARD = 0,
-			SOLENOID_GRIPPERBACKWARD = 1,
-			SOLENOIDE_INTAKEFORWARD = 2,
-			SOLENOIDE_INTAKEBACKWARD = 3;
+	public static final int SOLENOID_GRIPPERFORWARD = 3,
+			SOLENOID_GRIPPERBACKWARD = 2,
+			SOLENOIDE_INTAKEFORWARD = 0,
+			SOLENOIDE_INTAKEBACKWARD = 1;
 
 	// PID Constants for DriveTrain
 	public static final double DRIVEPID_Kp = 0.03, DRIVEPID_Ki = 0,

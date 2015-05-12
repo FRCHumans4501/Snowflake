@@ -43,7 +43,6 @@ public class Intake extends Subsystem {
 		//this.solenoid.set(this.solenoid.get());
 
 		boolean elevatorSwitchState = elevatorLimitSwitch.get();
-		System.out.println("Switch: " + elevatorSwitchState);
 		if (elevatorSwitchState == true && lastSwitchState == false && Robot.elevator.getDirection() == Direction.DOWN) {
 			this.open();
 			System.out.println("Elevator Intake Open");
@@ -53,11 +52,11 @@ public class Intake extends Subsystem {
 	}
 
 	public void open() {
-		this.solenoid.set(Value.kReverse);
+		this.solenoid.set(Value.kForward);
 	}
 
 	public void close() {
-		this.solenoid.set(Value.kForward);
+		this.solenoid.set(Value.kReverse);
 	}
 
 	public void load() {

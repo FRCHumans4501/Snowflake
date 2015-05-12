@@ -24,7 +24,7 @@ public class DriveForwardForTime extends Command {
 
 		this.runTime = time;
 		this.speed = speed;
-
+		
 		requires(Robot.driveTrain);
 	}
 
@@ -37,13 +37,13 @@ public class DriveForwardForTime extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		Robot.driveTrain.arcadeDrive(speed, 0, 0);
+		Robot.driveTrain.arcadeDrive(-this.speed, 0, 0);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
 		double currentTime = timer.get();
-
+		
 		if (runTime > currentTime) {
 			return false;
 		} else {
